@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowDown, Sparkles, Play, Star } from "lucide-react";
+import { ArrowDown, Sparkles, Play, Star, Film, Zap, Wind, UserCircle, Scissors, Swords, Sprout, Clapperboard } from "lucide-react";
 
 export default function HeroSection() {
   const scrollToTable = () => {
@@ -89,12 +89,23 @@ export default function HeroSection() {
         <div className="animate-fade-in-up animate-delay-500">
           <p className="text-xs text-gray-500 mb-4 uppercase tracking-widest">Herramientas incluidas</p>
           <div className="flex flex-wrap justify-center gap-3">
-            {["🎬 Runway ML", "⚡ Pika Labs", "🌀 Sora", "🧑‍💼 HeyGen", "✂️ CapCut", "💫 Luma AI", "🐉 Kling AI", "🌱 Seedance", "🎞️ Google Flow"].map((tool) => (
+            {[
+              { icon: Film, label: "Runway ML" },
+              { icon: Zap, label: "Pika Labs" },
+              { icon: Wind, label: "Sora" },
+              { icon: UserCircle, label: "HeyGen" },
+              { icon: Scissors, label: "CapCut" },
+              { icon: Sparkles, label: "Luma AI" },
+              { icon: Swords, label: "Kling AI" },
+              { icon: Sprout, label: "Seedance" },
+              { icon: Clapperboard, label: "Google Flow" },
+            ].map(({ icon: Icon, label }) => (
               <span
-                key={tool}
-                className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-sm text-gray-300 hover:bg-white/10 transition-colors cursor-default"
+                key={label}
+                className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-sm text-gray-300 hover:bg-white/10 transition-colors cursor-default inline-flex items-center gap-1.5"
               >
-                {tool}
+                <Icon size={13} className="opacity-70" />
+                {label}
               </span>
             ))}
           </div>

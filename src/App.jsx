@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ToolDetail from "./pages/ToolDetail";
 import LearningPath from "./pages/LearningPath";
+import Mentoria from "./pages/Mentoria";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/herramienta/:id" element={<ToolDetail />} />
         <Route path="/ruta-aprendizaje" element={<LearningPath />} />
+        <Route path="/mentoria" element={<Mentoria />} />
       </Routes>
     </HashRouter>
   );

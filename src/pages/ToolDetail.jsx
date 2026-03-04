@@ -3,7 +3,7 @@ import { aiTools } from "../data/aiTools";
 import ToolLogo from "../components/ToolLogo";
 import {
   ArrowLeft, Star, ExternalLink, Check, X, Lightbulb, BookOpen,
-  Zap, Users, Target, BarChart3, DollarSign, Info, ChevronRight
+  Zap, Users, Target, BarChart3, DollarSign, Info, ChevronRight, Search
 } from "lucide-react";
 
 const difficultyConfig = {
@@ -29,7 +29,9 @@ export default function ToolDetail() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl mb-4">🔍</div>
+          <div className="w-16 h-16 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Search size={32} className="text-white" />
+          </div>
           <h2 className="text-2xl font-bold text-white mb-2">Herramienta no encontrada</h2>
           <button onClick={() => navigate("/")} className="btn-primary mt-4">
             Volver al inicio

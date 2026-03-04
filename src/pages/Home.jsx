@@ -4,7 +4,7 @@ import ComparisonTable from "../components/ComparisonTable";
 import ToolCard from "../components/ToolCard";
 import { aiTools } from "../data/aiTools";
 import { useNavigate, useLocation } from "react-router-dom";
-import { BookOpen, Zap, Star, TrendingUp, Play, ArrowRight } from "lucide-react";
+import { BookOpen, Zap, Star, TrendingUp, Play, ArrowRight, Film, Scissors, Wind, Brain, FileText, RefreshCw, Globe, Rocket, Users } from "lucide-react";
 
 const topRated = [...aiTools].sort((a, b) => b.rating - a.rating).slice(0, 6);
 const forBeginners = aiTools.filter((t) => t.difficulty === "Principiante").slice(0, 3);
@@ -32,14 +32,14 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap justify-center gap-8">
             {[
-              { icon: "🎬", label: "Runway ML", sub: "Mejor calidad general" },
-              { icon: "⚡", label: "Pika Labs", sub: "Mejor para principiantes" },
-              { icon: "🐉", label: "Kling AI", sub: "Mejor plan gratuito" },
-              { icon: "✂️", label: "CapCut AI", sub: "Más usuarios activos" },
-              { icon: "🌀", label: "Sora", sub: "Mayor calidad cinematic" },
+              { icon: Film, label: "Runway ML", sub: "Mejor calidad general" },
+              { icon: Zap, label: "Pika Labs", sub: "Mejor para principiantes" },
+              { icon: Wind, label: "Kling AI", sub: "Mejor plan gratuito" },
+              { icon: Scissors, label: "CapCut AI", sub: "Más usuarios activos" },
+              { icon: TrendingUp, label: "Sora", sub: "Mayor calidad cinematic" },
             ].map((item) => (
               <div key={item.label} className="flex items-center gap-2 text-center sm:text-left">
-                <span className="text-2xl">{item.icon}</span>
+                <item.icon size={24} className="text-violet-400 flex-shrink-0" />
                 <div>
                   <p className="text-white font-semibold text-sm">{item.label}</p>
                   <p className="text-gray-500 text-xs">{item.sub}</p>
@@ -138,38 +138,38 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             {[
               {
-                icon: "🧠",
+                icon: Brain,
                 title: "Modelos de Difusión",
                 desc: "La mayoría de las IAs de video usan modelos de difusión: agregan ruido aleatorio a videos reales durante el entrenamiento y aprenden a revertir ese proceso. En la inferencia, parten de ruido puro y 'quitan' ruido guiados por tu prompt hasta generar un video coherente.",
               },
               {
-                icon: "📝",
+                icon: FileText,
                 title: "Prompt Engineering",
                 desc: "El 'prompt' es la instrucción en texto que le das a la IA. Dominar el arte de escribir prompts efectivos es la habilidad más importante para obtener buenos resultados. Incluir estilo, movimiento de cámara, iluminación y detalles técnicos marca una diferencia enorme.",
               },
               {
-                icon: "⚡",
+                icon: Zap,
                 title: "Créditos y Tokens",
                 desc: "Las plataformas usan sistemas de créditos porque generar video consume muchos recursos computacionales (GPU). Cada segundo de video puede costar 1-10 créditos según la calidad. Los planes gratuitos dan una cantidad limitada mensual o diariamente.",
               },
               {
-                icon: "🎬",
+                icon: Film,
                 title: "Texto a Video vs Imagen a Video",
                 desc: "Las IAs modernas soportan dos modos principales: Texto a Video (solo describes con palabras lo que quieres) e Imagen a Video (das una foto de inicio y la IA la anima). Imagen a Video da resultados más predecibles y es más fácil de controlar para principiantes.",
               },
               {
-                icon: "🔄",
+                icon: RefreshCw,
                 title: "Coherencia Temporal",
                 desc: "El mayor reto técnico en generación de video es mantener coherencia entre fotogramas: que los personajes, objetos y fondos sean consistentes durante toda la secuencia. Los modelos más avanzados (Sora, Gen-3) son excelentes en esto; los básicos pueden tener 'glitches'.",
               },
               {
-                icon: "🌐",
+                icon: Globe,
                 title: "Modelos Especializados vs Generales",
                 desc: "Algunas IAs son generalistas (generan cualquier tipo de video) como Runway o Pika, mientras otras están especializadas: HeyGen en avatares, Descript en transcripción, Synthesia en contenido corporativo. Cada especialista supera a los generalistas en su nicho.",
               },
             ].map((item) => (
               <div key={item.title} className="card-glass p-6 hover:bg-white/8 transition-all">
-                <div className="text-3xl mb-3">{item.icon}</div>
+                <item.icon size={28} className="text-violet-400 mb-3" />
                 <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
               </div>
@@ -178,10 +178,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Mentoria CTA */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="card-glass p-10 text-center border border-violet-500/20">
+            <div className="w-16 h-16 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+              <Users size={32} className="text-white" />
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">
+              Mentoría <span className="gradient-text">Personalizada</span>
+            </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto mb-8 text-lg">
+              Aprende a dominar las IAs de video con guía personalizada. Sesiones adaptadas a tu nivel y objetivos.
+            </p>
+            <button
+              onClick={() => navigate("/mentoria")}
+              className="btn-primary inline-flex items-center gap-2 text-base py-3 px-8"
+            >
+              <Users size={18} />
+              Solicitar Mentoría
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 px-4 animated-gradient-bg">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="text-6xl mb-6 animate-float">🚀</div>
+          <div className="w-16 h-16 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-6 animate-float">
+            <Rocket size={32} className="text-white" />
+          </div>
           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
             ¿Listo para crear con <span className="gradient-text">IA?</span>
           </h2>

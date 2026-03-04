@@ -75,6 +75,14 @@ export default function Navbar() {
             >
               Ruta de Aprendizaje
             </Link>
+            <Link
+              to="/mentoria"
+              className={`text-sm font-medium transition-colors hover:text-violet-400 ${
+                location.pathname === "/mentoria" ? "text-violet-400" : "text-gray-300"
+              }`}
+            >
+              Mentoría
+            </Link>
             <button
               onClick={() => scrollToSection("herramientas")}
               className="btn-primary text-sm py-2 px-4"
@@ -115,6 +123,13 @@ export default function Navbar() {
               onClick={() => setIsMenuOpen(false)}
             >
               Ruta de Aprendizaje
+            </Link>
+            <Link
+              to="/mentoria"
+              className="text-gray-300 hover:text-violet-400 transition-colors py-2 text-sm font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Mentoría
             </Link>
             <button
               onClick={() => scrollToSection("herramientas")}

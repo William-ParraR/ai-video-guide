@@ -262,7 +262,9 @@ export default function ComparisonTable() {
 
           {filtered.length === 0 && (
             <div className="py-16 text-center">
-              <div className="text-4xl mb-4">🔍</div>
+              <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Search size={28} className="text-white" />
+              </div>
               <p className="text-gray-400">No se encontraron herramientas con esos filtros</p>
               <button
                 onClick={() => { setSearch(""); setSelectedCategory("Todos"); setSelectedDifficulty("Todos"); }}

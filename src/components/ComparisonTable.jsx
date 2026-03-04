@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, Filter, Star, ExternalLink, ChevronUp, ChevronDown, Info } from "lucide-react";
 import { aiTools, categories, difficultyLevels } from "../data/aiTools";
+import ToolLogo from "./ToolLogo";
 
 const tierColors = {
   freemium: "tier-badge-freemium",
@@ -193,12 +194,7 @@ export default function ComparisonTable() {
                 >
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl border bg-gradient-to-br ${tool.color} bg-opacity-20`}
-                        style={{ background: "rgba(255,255,255,0.05)" }}
-                      >
-                        {tool.logo}
-                      </div>
+                      <ToolLogo tool={tool} sizeClass="w-10 h-10" textSize="text-xl" />
                       <div>
                         <div className="font-semibold text-white">{tool.name}</div>
                         <div className="text-xs text-gray-500 max-w-[200px] truncate">{tool.tagline}</div>

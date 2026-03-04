@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { learningPath, aiTools } from "../data/aiTools";
 import { ArrowLeft, BookOpen, Clock, ChevronRight, Zap, Trophy, Star } from "lucide-react";
+import ToolLogo from "../components/ToolLogo";
 
 const stepColors = [
   "from-emerald-600 to-teal-600",
@@ -71,21 +72,21 @@ export default function LearningPath() {
 
         {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-violet-500 to-rose-500 opacity-30" />
+          {/* Vertical line — hidden on very small screens */}
+          <div className="absolute left-5 sm:left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-500 via-violet-500 to-rose-500 opacity-30" />
 
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             {learningPath.map((stage, idx) => (
-              <div key={stage.step} className="relative flex gap-6">
+              <div key={stage.step} className="relative flex gap-3 sm:gap-6">
                 {/* Step indicator */}
                 <div
-                  className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${stepColors[idx]} flex items-center justify-center text-white font-black text-lg shadow-lg flex-shrink-0 z-10`}
+                  className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-br ${stepColors[idx]} flex items-center justify-center text-white font-black text-base sm:text-lg shadow-lg flex-shrink-0 z-10`}
                 >
                   {stage.step}
                 </div>
 
                 {/* Content */}
-                <div className={`flex-1 rounded-2xl border p-6 ${stepBg[idx]}`}>
+                <div className={`flex-1 min-w-0 rounded-2xl border p-4 sm:p-6 ${stepBg[idx]}`}>
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
                     <div>
                       <h3 className="text-xl font-bold text-white">{stage.title}</h3>
@@ -125,7 +126,7 @@ export default function LearningPath() {
                             onClick={() => navigate(`/herramienta/${tool.id}`)}
                             className="flex items-center gap-3 bg-white/3 hover:bg-white/8 border border-white/10 rounded-xl p-3 cursor-pointer transition-all group"
                           >
-                            <span className="text-xl">{tool.logo}</span>
+                            <ToolLogo tool={tool} sizeClass="w-8 h-8" textSize="text-base" />
                             <div className="flex-1 min-w-0">
                               <p className="text-white text-sm font-semibold truncate">{tool.name}</p>
                               <div className="flex items-center gap-1">

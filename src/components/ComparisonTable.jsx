@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Filter, Star, ExternalLink, ChevronUp, ChevronDown, Info } from "lucide-react";
+import { Search, Filter, Star, ExternalLink, ChevronUp, ChevronDown, Info, ChevronRight } from "lucide-react";
 import { aiTools, categories, difficultyLevels } from "../data/aiTools";
 import ToolLogo from "./ToolLogo";
 
@@ -99,8 +99,8 @@ export default function ComparisonTable() {
         </div>
 
         {/* Filters */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
+        <div className="flex flex-col gap-3 mb-8">
+          <div className="relative">
             <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
             <input
               type="text"
@@ -110,28 +110,26 @@ export default function ComparisonTable() {
               className="w-full pl-9 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-violet-500/50 focus:bg-white/8 transition-all text-sm"
             />
           </div>
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-violet-500/50 transition-all text-sm min-w-[180px]"
-          >
-            {categories.map((c) => (
-              <option key={c} value={c} className="bg-gray-900">
-                {c}
-              </option>
-            ))}
-          </select>
-          <select
-            value={selectedDifficulty}
-            onChange={(e) => setSelectedDifficulty(e.target.value)}
-            className="px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-violet-500/50 transition-all text-sm min-w-[150px]"
-          >
-            {difficultyLevels.map((d) => (
-              <option key={d} value={d} className="bg-gray-900">
-                {d}
-              </option>
-            ))}
-          </select>
+          <div className="flex gap-3">
+            <select
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+              className="flex-1 px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-violet-500/50 transition-all text-sm"
+            >
+              {categories.map((c) => (
+                <option key={c} value={c} className="bg-gray-900">{c}</option>
+              ))}
+            </select>
+            <select
+              value={selectedDifficulty}
+              onChange={(e) => setSelectedDifficulty(e.target.value)}
+              className="flex-1 px-3 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-violet-500/50 transition-all text-sm"
+            >
+              {difficultyLevels.map((d) => (
+                <option key={d} value={d} className="bg-gray-900">{d}</option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Results count */}
@@ -145,8 +143,70 @@ export default function ComparisonTable() {
           <span className="text-xs text-gray-600">Haz clic en una fila para ver detalles completos</span>
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto rounded-2xl border border-white/10">
+        {/* Mobile card view */}
+        <div className="md:hidden space-y-3">
+          {filtered.length === 0 ? (
+            <div className="py-16 text-center">
+              <div className="w-14 h-14 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <Search size={28} className="text-white" />
+              </div>
+              <p className="text-gray-400">No se encontraron herramientas con esos filtros</p>
+              <button
+                onClick={() => { setSearch(""); setSelectedCategory("Todos"); setSelectedDifficulty("Todos"); }}
+                className="mt-4 text-violet-400 hover:text-violet-300 text-sm"
+              >
+                Limpiar filtros
+              </button>
+            </div>
+          ) : filtered.map((tool) => (
+            <div
+              key={tool.id}
+              onClick={() => navigate(`/herramienta/${tool.id}`)}
+              className="card-glass p-4 cursor-pointer active:bg-white/10 transition-colors"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <ToolLogo tool={tool} sizeClass="w-10 h-10" textSize="text-xl" />
+                <div className="flex-1 min-w-0">
+                  <p className="font-semibold text-white text-sm truncate">{tool.name}</p>
+                  <p className="text-xs text-gray-500 truncate">{tool.tagline}</p>
+                </div>
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  <Star size={11} className="text-yellow-400 fill-yellow-400" />
+                  <span className="text-white text-xs font-bold">{tool.rating}</span>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                <span className={`text-xs px-2 py-0.5 rounded-lg border font-medium ${accentMap[tool.accentColor] || "text-gray-400 bg-gray-500/10 border-gray-500/20"}`}>
+                  {tool.category}
+                </span>
+                <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                  tool.difficulty === "Principiante" ? "bg-emerald-500/15 text-emerald-400"
+                  : tool.difficulty === "Intermedio" ? "bg-amber-500/15 text-amber-400"
+                  : "bg-red-500/15 text-red-400"
+                }`}>{tool.difficulty}</span>
+                <span className={tierColors[tool.tierType]}>{tierLabels[tool.tierType]}</span>
+              </div>
+              <p className="text-gray-400 text-xs mb-3 line-clamp-2">{tool.freeLimit}</p>
+              <div className="flex items-center justify-between pt-2 border-t border-white/5">
+                <a
+                  href={tool.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1 text-gray-500 hover:text-violet-400 transition-colors text-xs"
+                >
+                  Visitar <ExternalLink size={10} />
+                </a>
+                <span className="text-xs text-violet-400 font-semibold flex items-center gap-1">
+                  Ver detalles <ChevronRight size={12} />
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop table */}
+        <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/10">
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-white/5 border-b border-white/10">

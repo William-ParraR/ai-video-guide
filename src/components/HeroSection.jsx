@@ -30,7 +30,7 @@ export default function HeroSection() {
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-600/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "2s" }} />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-20">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-2 mb-8 animate-fade-in-up">
           <Sparkles size={14} className="text-violet-400" />
@@ -100,11 +100,12 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 animate-bounce">
-          <span className="text-xs uppercase tracking-widest">Descubrir</span>
-          <ArrowDown size={16} />
-        </div>
+      </div>
+
+      {/* Scroll indicator — fuera del contenido para evitar solapamiento */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-500 animate-bounce z-10">
+        <span className="text-xs uppercase tracking-widest">Descubrir</span>
+        <ArrowDown size={16} />
       </div>
     </section>
   );
